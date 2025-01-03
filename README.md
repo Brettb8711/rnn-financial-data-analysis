@@ -51,7 +51,8 @@ rnn-financial-data-analysis/
 ### Current Focus
 - Fine-tuning the LSTM architecture and hyperparameters.
 - Exploring additional tickers and multi-ticker predictions.
-- Future Goals
+
+### Future Goals
 - Incorporate multi-variable models (e.g., using Volume, Open, High, Low features).
 - Experiment with other time-series models (GRUs, Transformers).
 - Deploy the model as an API for real-time predictions.
