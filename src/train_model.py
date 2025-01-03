@@ -57,4 +57,4 @@ plt.ylabel("Predicted Values")
 plt.show()
 
 print("Saving model")
-model.save('../models/rnn_model.h5')
+model.save('./models/rnn_model.keras')
