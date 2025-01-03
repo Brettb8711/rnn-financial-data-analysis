@@ -18,7 +18,7 @@ By leveraging historical data of major companies and indices (e.g., SPY, AAPL, M
 
 
 ## Project Structure
-
+```
 rnn-financial-data-analysis/
 │
 ├── data/
@@ -38,7 +38,7 @@ rnn-financial-data-analysis/
 │   ├── train_model.py     # Script for training and evaluating the model
 │
 ├── README.md              # Project documentation
-
+```
 ## Progress
 
 ### Milestones Achieved
