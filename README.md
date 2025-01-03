@@ -60,20 +60,28 @@ rnn-financial-data-analysis/
 ### Setup
 Clone this repository:
 
+```
 git clone https://github.com/yourusername/rnn-financial-data-analysis.git
 cd rnn-financial-data-analysis
+```
 
 Install dependencies:
 
+```
 pip install -r requirements.txt
+```
 Run the preprocessing notebook:
 
+```
 notebooks/data_preprocessing.ipynb
+```
 This will download, clean, and preprocess the data.
 
 Train the model:
 
+```
 python src/train_model.py
+```
 
 
 ### Requirements
