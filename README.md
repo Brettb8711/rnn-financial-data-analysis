@@ -90,7 +90,7 @@ Python 3.8+
 Libraries: yfinance, numpy, pandas, scikit-learn, tensorflow, matplotlib
 
 ## Results
-Add visuals like loss curves, actual vs. predicted stock prices, or key performance metrics (e.g., MSE, MAE) here as you progress.
+
 
 ## Acknowledgments
 - yfinance for financial data collection.
