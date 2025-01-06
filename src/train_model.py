@@ -26,7 +26,7 @@ print("Data Loaded")
 # Define the Model
 model = Sequential()
 model.add(keras.Input(shape=(X_train.shape[1], 1)))
-model.add(LSTM(units=16, activation='relu'))
+model.add(LSTM(units=16, activation='tanh'))
 model.add(Dense(1))
 
 print("Compiling the Model")
@@ -49,9 +49,9 @@ actual_values = (y_test)
 
 # Plot Results
 plt.scatter(actual_values, predicted_values, label='Actual')
-p1 = max(max(predicted_values), max(actual_values))
-p2 = min(min(predicted_values), min(actual_values))
-plt.plot([p1, p2], [p1, p2], 'b-')
+#p1 = max(max(predicted_values), max(actual_values))
+#p2 = min(min(predicted_values), min(actual_values))
+#plt.plot([0, 0], [max(predicted_values), max(actual_values)], 'b-')
 plt.xlabel('Actual Values')
 plt.ylabel("Predicted Values")
 plt.show()
