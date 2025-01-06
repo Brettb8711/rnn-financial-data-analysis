@@ -1,0 +1,15 @@
+# model = Sequential()
+model.add(keras.Input(shape=(X_train.shape[1], 1)))
+model.add(LSTM(units=16, activation='tanh'))
+model.add(Dense(1))
+
+print("Compiling the Model")
+model.compile(optimizer='RMSprop', loss='mse', metrics=['mae'])
+print("Model Compiled")
+
+# Train the Model
+print("Training the Model")
+history = model.fit(X_train, y_train, epochs=20, batch_size=32, validation_split=0.2, verbose=1)
+
+Test Loss: 0.01000366359949112, Test MAE: 0.08635526895523071
+
