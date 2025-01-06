@@ -41,11 +41,23 @@ history = model.fit(X_train, y_train, epochs=20, batch_size=32, validation_split
 test_loss, test_mae = model.evaluate(X_test, y_test)
 print(f"Test Loss: {test_loss}, Test MAE: {test_mae}")
 
-# Make Predictions
 
+# Make Predictions
 predictions = model.predict(X_test)
 predicted_values = (predictions)
 actual_values = (y_test)
+
+# Plot training and validation loss
+plt.figure(figsize=(10, 6))
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.title('Training and Validation Loss')
+plt.legend()
+plt.grid(True)
+plt.show()
+
 
 # Plot Results
 plt.scatter(actual_values, predicted_values, label='Actual')
