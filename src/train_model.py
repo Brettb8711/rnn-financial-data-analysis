@@ -5,12 +5,13 @@ os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 import keras
 from tensorflow.keras.models import Sequential # type: ignore
-from tensorflow.keras.layers import LSTM, Dense # type: ignore
+from tensorflow.keras.layers import LSTM, Dense, Dropout # type: ignore
+from keras import regularizers
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 # Load Data
-print("Loading Rraining and Testing Data")
+print("Loading Training and Testing Data")
 
 X_train = np.load('./data/X_train.npy')
 X_test = np.load('./data/X_test.npy')
@@ -26,7 +27,10 @@ print("Data Loaded")
 # Define the Model
 model = Sequential()
 model.add(keras.Input(shape=(X_train.shape[1], 1)))
-model.add(LSTM(units=16, activation='tanh'))
+model.add(LSTM(units=16, activation='tanh', return_sequences=True))
+model.add(Dropout(rate=0.2))
+model.add(LSTM(units=32, activation='tanh', activity_regularizer=regularizers.L2(1e-5)))
+#model.add(Dropout(rate=0.2))
 model.add(Dense(1))
 
 print("Compiling the Model")
@@ -35,7 +39,7 @@ print("Model Compiled")
 
 # Train the Model
 print("Training the Model")
-history = model.fit(X_train, y_train, epochs=20, batch_size=32, validation_split=0.2, verbose=1)
+history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_split=0.3, verbose=2)
 
 # Evaluate the Model
 test_loss, test_mae = model.evaluate(X_test, y_test)
@@ -60,6 +64,8 @@ plt.show()
 
 
 # Plot Results
+#print(f"Actual Vals: {actual_values.shape}")
+#print(f"Predicted Vals: {predicted_values.shape}")
 plt.scatter(actual_values, predicted_values, label='Actual')
 #p1 = max(max(predicted_values), max(actual_values))
 #p2 = min(min(predicted_values), min(actual_values))
