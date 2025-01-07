@@ -9,6 +9,9 @@ from tensorflow.keras.layers import LSTM, Dense, Dropout # type: ignore
 from keras import regularizers
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
+from time import time
+from datetime import datetime
+import logging
 
 # Load Data
 print("Loading Training and Testing Data")
@@ -37,9 +40,16 @@ print("Compiling the Model")
 model.compile(optimizer='RMSprop', loss='mse', metrics=['mae'])
 print("Model Compiled")
 
+# Record the start time
+start_time = time()
+
 # Train the Model
 print("Training the Model")
 history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_split=0.3, verbose=2)
+
+# Record the end time
+end_time = time()
+training_time = f'{(end_time - start_time) // 60}m{(end_time - start_time) % 60:.0f}s'
 
 # Evaluate the Model
 test_loss, test_mae = model.evaluate(X_test, y_test)
@@ -73,6 +83,19 @@ plt.scatter(actual_values, predicted_values, label='Actual')
 plt.xlabel('Actual Values')
 plt.ylabel("Predicted Values")
 plt.show()
+
+experiment_data = {
+    'Experiment ID': 'LSTM_001',
+    'Model Details': '1 LSTM layers, 16 units, tanh activation',
+    'Hyperparameters': 'batch=32',
+    'Metrics': f"Train Loss={history.history['loss'][-1]:.4f}, Val Loss={history.history['val_loss'][-1]:.4f}, Val MAE={history.history['val_mae'][-1]:.4f}",
+    'Training Time': training_time,
+    'Notes': '.',
+    'Timestamp': datetime.now()
+}
+
+# Log the experiment
+logging.log_experiment_pandas(experiment_data)
 
 print("Saving model")
 model.save('./models/rnn_model.keras')
