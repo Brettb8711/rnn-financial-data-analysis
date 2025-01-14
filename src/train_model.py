@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from time import time
 from datetime import datetime
-import logging
+import experiment_logging
 
 # Load Data
 print("Loading Training and Testing Data")
@@ -30,9 +30,9 @@ print("Data Loaded")
 # Define the Model
 model = Sequential()
 model.add(keras.Input(shape=(X_train.shape[1], 1)))
-model.add(LSTM(units=16, activation='tanh', return_sequences=True))
+model.add(LSTM(units=16, activation='tanh'))
 model.add(Dropout(rate=0.2))
-model.add(LSTM(units=32, activation='tanh', activity_regularizer=regularizers.L2(1e-5)))
+#model.add(LSTM(units=32, activation='tanh', activity_regularizer=regularizers.L2(1e-5)))
 #model.add(Dropout(rate=0.2))
 model.add(Dense(1))
 
@@ -45,7 +45,7 @@ start_time = time()
 
 # Train the Model
 print("Training the Model")
-history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_split=0.3, verbose=2)
+history = model.fit(X_train, y_train, epochs=50, batch_size=32, validation_split=0.2, verbose=2)
 
 # Record the end time
 end_time = time()
@@ -90,12 +90,12 @@ experiment_data = {
     'Hyperparameters': 'batch=32',
     'Metrics': f"Train Loss={history.history['loss'][-1]:.4f}, Val Loss={history.history['val_loss'][-1]:.4f}, Val MAE={history.history['val_mae'][-1]:.4f}",
     'Training Time': training_time,
-    'Notes': '.',
+    'Notes': 'Baseline Model.',
     'Timestamp': datetime.now()
 }
 
 # Log the experiment
-logging.log_experiment_pandas(experiment_data)
+experiment_logging.log_experiment_pandas(experiment_data)
 
 print("Saving model")
-model.save('./models/rnn_model.keras')
+model.save('./models/LSTM_001.keras')
